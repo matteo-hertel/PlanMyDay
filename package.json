@@ -1,0 +1,16 @@
+{
+  "name": "planMyDay",
+  "version": "0.0.1",
+  "description": "Serverless function to interact with ToDoist API and help plan your day",
+  "main": "handler.js",
+  "author": "Matteo Hertel <info@matteohertel.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "jest": "^20.0.4",
+    "todoist-js": "^0.3.1"
+  },
+  "scripts": {
+    "test": "jest __tests__"
+  }
+}
