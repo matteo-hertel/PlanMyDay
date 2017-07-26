@@ -17,7 +17,11 @@ function fetchProjectTasks(project) {
         .then(getItems);
 }
 function getItems(data) {
-    return data.items;
+    if (!data.items) {
+        throw new Error("The given object is missing the items property");
+    };
+
+    return data.items
 }
 function fetchProjectsTasks(projects) {
     return Promise.all(projects.map(mapProjects));

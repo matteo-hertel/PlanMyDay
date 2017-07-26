@@ -2,34 +2,40 @@
 require('dotenv').config({
     path: `${__dirname}/../.env`
 });
-const planMyDay = require("./../src/todoist");
+const api = require("./../src/todoist");
 
 const projects = process.env.TODOIST_PROJECTS.split(" ");
 const project = projects[0];
 
 describe("Plan my day logic", () => {
-    it("can retrieve a tasks list from a project", () => {
-        planMyDay.fetchProjectTasks(project).then(tasks => {
+    it("should retrieve a tasks list from a project", () => {
+        api.fetchProjectTasks(project).then(tasks => {
             expect(tasks.length).toBeDefined();
             expect(tasks.length).toBeGreaterThanOrEqual(0);
         });
     });
 
-    it("can map projects to project", () => {
-        planMyDay.mapProjects(project).then(promise => {
+    it("should map projects to project", () => {
+        api.mapProjects(project).then(promise => {
             expect(promise).toBeDefined();
             expect(typeof promise).toBe("object");
         });
     });
 
-    it("can extract items from object", () => {
-        let items = planMyDay.getItems({ items: "test" });
+    it("should extract items from object", () => {
+        let items = api.getItems({ items: "test" });
         expect(items).toBeDefined();
         expect(items).toBe("test");
     });
 
-    it("can retrieve a tasks list from multiple projects", () => {
-        planMyDay.fetchProjectsTasks(projects)
+    it("should throw if the property items is missing", () => {
+        expect(() => {
+            api.getItems({})
+        }).toThrow();
+    });
+
+    it("should retrieve a tasks list from multiple projects", () => {
+        api.fetchProjectsTasks(projects)
             .then(projects => {
                 expect(projects.length).toBeDefined();
                 expect(projects.length).toBe(projects.length);
