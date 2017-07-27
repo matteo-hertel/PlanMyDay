@@ -30,13 +30,24 @@ function getRandomTaskFromProjects(projects) {
 function _getRandomTask(tasks) {
     return extractRandomItemFromArray(flatten(tasks));
 }
+function setTodayAsDeadline(task) {
+    todoist.items.update(task.id, { date_string: 'Today' });
+    return task;
+}
+function commit() {
+    todoist.commit();
+    return true;
+}
 module.exports = {
     getRandomTaskFromProjects,
+    setTodayAsDeadline,
+    commit,
     private: {
         _getTasksFromProjectId,
         _fetchProjectsTasks,
         _mapProjects,
         _getItems,
-        _getRandomTask
+        _getRandomTask,
+        todoist
     }
 }
