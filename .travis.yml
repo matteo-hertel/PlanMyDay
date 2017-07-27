@@ -1,0 +1,13 @@
+language: node_js
+node_js: 8
+sudo: required
+dist: trusty
+addons:
+  code_climate:
+    repo_token: $CODECLIMATE_REPO_TOKEN
+before_script:
+- npm install -g yarn codeclimate-test-reporter
+- yarn
+script:
+- yarn test
+- codeclimate-test-reporter < ./coverage/lcov.info
