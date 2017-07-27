@@ -1,16 +1,16 @@
 'use strict';
+const todoist = require("./src/todoist");
+const projects = process.env.TODOIST_PROJECTS.split(" ");
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
+module.exports.planMyDay = (event, context, callback) => {
+  todoist.getRandomTaskFromProjects(projects)
+    .then(todoist.setTodayAsDeadline)
+    .then(todoist.commit)
+    .then(() => {
+      callback(null, { message: 'success', event });
+    })
+    .catch(exc => {
+      callback(exc);
+    })
 
-  callback(null, response);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
 };
