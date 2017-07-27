@@ -15,6 +15,7 @@ package:
  exclude:
    - coverage/**
    - __tests__/**
+   - docs/**
 
 functions:
   planMyDay:
